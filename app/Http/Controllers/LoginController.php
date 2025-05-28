@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -44,6 +45,17 @@ class LoginController extends Controller
         return redirect()->route('login');
     }
 
+    public function validateAccount($token)
+    {
+        $user = User::where('remember_token', $token)->first();
+        if ($user && $user->remember_token == $token) {
+            $user->remember_token = null;
+            $user->save();
+            return redirect('/login')->with('success', 'Account confirmed successfully.');
+        } else {
+            return redirect('/login')->with('error', 'Invalid token.');
+        }
+    }
 
 
 

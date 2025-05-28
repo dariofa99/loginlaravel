@@ -115,6 +115,16 @@
             </ul>
         </div>
     @endif
+    @if (session('error'))
+        <div class="error-box" style="color: red; margin-bottom: 1rem;">
+            {{ session('error') }}
+        </div>
+    @endif
+    @if (session('success'))
+        <div class="success-box" style="color: green; margin-bottom: 1rem;">
+            {{ session('success') }}
+        </div>
+    @endif
     <form action="/login" method="POST">
         @csrf
       <div class="form-group">
@@ -128,7 +138,7 @@
       <button type="submit" class="login-btn">Entrar</button>
     </form>
     <div class="extra">
-      ¿No tienes cuenta? <a href="#">Regístrate</a>
+      ¿No tienes cuenta? <a href="/register">Regístrate</a>
     </div>
   </div>
 </body>

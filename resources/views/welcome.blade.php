@@ -178,7 +178,7 @@
         </form>
 
         <div class="login-link">
-            ¿Ya tienes una cuenta? <a href="#">Inicia sesión</a>
+            ¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a>
         </div>
     </div>
 

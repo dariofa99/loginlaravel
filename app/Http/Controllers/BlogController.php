@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Notifications\UserNotification;
+use App\Models\Blog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class UsersController extends Controller
+class BlogController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $usuarios = User::all();
-        return view('users.usuarios', compact('usuarios'));
+        //
     }
 
     /**
@@ -22,7 +21,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+       
+        return view('blog.create');
     }
 
     /**
@@ -30,23 +30,12 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-    
-        $remenber_token = bin2hex(random_bytes(10));
-
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);  
-
-        $user->remember_token = $remenber_token; 
-
-        $user->save();
-
-        $user->notify(new UserNotification());
-
-
+        $blog = new Blog();
+        $blog->title = $request->title;
+        $blog->content = $request->content;
+        $blog->user_id =  Auth::user()->id;
+        $blog->save();///auth()->user()->id;
         return redirect()->back();
-       
     }
 
     /**
@@ -78,9 +67,6 @@ class UsersController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = User::find($id);
-        $user->delete();
-        return redirect()->back();
-        
+        //
     }
 }
